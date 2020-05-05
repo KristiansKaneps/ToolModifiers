@@ -1,0 +1,74 @@
+author: k4neps
+version: 1.2
+api-version: 1.14
+name: ToolModifiers
+main: k4neps.toolmodifiers.ToolModifiers
+softdepend: [Factions, Towny]
+
+commands:
+  tm:
+    alias: [toolmodifiers]
+    description: Base command for ToolModifiers plugin.
+    permission: toolmodifiers.command
+
+permissions:
+
+  toolmodifiers.*:
+    default: false
+    toolmodifiers.hammer.*: true
+    toolmodifiers.excavator.*: true
+    toolmodifiers.lumberaxe.*: true
+    toolmodifiers.give.*: true
+    toolmodifiers.command: true
+
+  toolmodifiers.hammer.*:
+    default: false
+    children:
+      toolmodifiers.hammer.use: true
+      toolmodifiers.hammer.craft: true
+  toolmodifiers.hammer.use:
+    default: true
+  toolmodifiers.hammer.craft:
+    default: true
+
+  toolmodifiers.excavator.*:
+    default: false
+    children:
+      toolmodifiers.excavator.use: true
+      toolmodifiers.excavator.craft: true
+  toolmodifiers.excavator.use:
+    default: true
+  toolmodifiers.excavator.craft:
+    default: true
+
+  toolmodifiers.lumberaxe.*:
+    default: false
+    children:
+      toolmodifiers.lumberaxe.use: true
+      toolmodifiers.lumberaxe.tree: true
+      toolmodifiers.lumberaxe.craft: true
+  toolmodifiers.lumberaxe.use:
+    default: true
+  toolmodifiers.lumberaxe.tree:
+    default: true
+  toolmodifiers.lumberaxe.craft:
+    default: true
+
+  toolmodifiers.command.*:
+    default: false
+    children:
+      toolmodifiers.command.give.*: true
+  toolmodifiers.command:
+    default: op
+  toolmodifiers.command.give.*:
+    default: false
+    children:
+      toolmodifiers.command.give.hammer: true
+      toolmodifiers.command.give.excavator: true
+      toolmodifiers.command.give.lumberaxe: true
+  toolmodifiers.command.give.hammer:
+    default: op
+  toolmodifiers.command.give.excavator:
+    default: op
+  toolmodifiers.command.give.lumberaxe:
+    default: op

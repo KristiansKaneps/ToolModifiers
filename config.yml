@@ -1,0 +1,40 @@
+# Example:
+#
+#  "h(x)" is read as "hardness value of x"
+#
+#  h(stone)    = 1.5
+#  h(iron ore) = 3.0
+#
+#  if you mine stone with hammer and iron ore is adjacent to it,
+#  it will break if h(stone) + hardness_threshold >= h(iron ore)
+hardness_threshold: 1.5
+
+lumberaxe:
+  # How far away from source block should lumberaxe check for additional log blocks (branches).
+  tree_branch_radius: 4
+  # Logs doesn't stay stuck on leaves.
+  drop_tree_logs_at_source: true
+
+hook:
+  factions:
+    # Will allow player to use modified tools in this faction's claimed territory
+    # regardless of whether or not he is a member of it.  Case-insensitive.
+    default_faction_name: "Wilderness"
+  towny:
+    # Is wilderness block break protected by Towny?
+    protect_wild: false
+
+display:
+  names:
+    diamond:
+      hammer: '§r§6Diamond Hammer'
+      excavator: '§r§6Diamond Excavator'
+      lumberaxe: '§r§6Diamond Lumberaxe'
+    iron:
+      hammer: '§r§6Iron Hammer'
+      excavator: '§r§6Iron Excavator'
+      lumberaxe: '§r§6Iron Lumberaxe'
+    gold:
+      hammer: '§r§6Golden Hammer'
+      excavator: '§r§6Golden Excavator'
+      lumberaxe: '§r§6Golden Lumberaxe'
