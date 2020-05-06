@@ -7,6 +7,8 @@ import k4neps.toolmodifiers.crafting.excavator.IronExcavator;
 import k4neps.toolmodifiers.crafting.hammer.*;
 import k4neps.toolmodifiers.crafting.lumberaxe.*;
 import k4neps.toolmodifiers.events.Events;
+import k4neps.toolmodifiers.integration.FactionsHook;
+import k4neps.toolmodifiers.integration.TownyHook;
 import k4neps.toolmodifiers.utils.Area;
 import org.bukkit.Server;
 import org.bukkit.plugin.Plugin;
@@ -71,11 +73,13 @@ public class ToolModifiers extends JavaPlugin
 			if(pluginName.equalsIgnoreCase("factions"))
 			{
 				terr[0] = true;
+				FactionsHook.hook();
 				Area.setTerritoryPlugin(Area.TerritoryPlugin.FACTIONS);
 			}
 			if(pluginName.equalsIgnoreCase("towny"))
 			{
 				terr[1] = true;
+				TownyHook.hook();
 				Area.setTerritoryPlugin(Area.TerritoryPlugin.TOWNY);
 			}
 			if(terr[0] && terr[1])

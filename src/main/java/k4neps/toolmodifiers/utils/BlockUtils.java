@@ -3,6 +3,7 @@ package k4neps.toolmodifiers.utils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Field;
@@ -535,6 +536,13 @@ public final class BlockUtils
 		if(silkTouchFound)
 		{
 			toReturn = new HashSet<>();
+			if(block.getState() instanceof InventoryHolder)
+			{
+				InventoryHolder invHolder = (InventoryHolder) block.getState();
+				ItemStack[] contents = invHolder.getInventory().getContents();
+				for(ItemStack stack : contents)
+					if(stack != null) toReturn.add(stack);
+			}
 			toReturn.add(new ItemStack(block.getType(), 1));
 		}
 		else if(fortuneFound && isFortuneOre(block))
@@ -566,7 +574,7 @@ public final class BlockUtils
 		}
 		else
 		{
-			toReturn = block.getDrops();
+			toReturn = block.getDrops(tool);
 		}
 
 		return toReturn;

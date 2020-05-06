@@ -1,0 +1,140 @@
+plugins {
+	id 'java'
+	id 'idea'
+	id 'dev.ethp.bukkit' version '0.1.6'
+}
+
+version = '1.2.1'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+bukkit {
+	name 'ToolModifiers'
+	main 'k4neps.toolmodifiers.ToolModifiers'
+
+	description 'Adds new modified tools to the game.'
+
+	author 'k4neps'
+
+	dependency 'Factions', OPTIONAL
+	dependency 'Towny', OPTIONAL
+
+	api {
+		version '1.15'
+	}
+
+	command 'toolmodifiers', {
+		alias 'tm'
+		description 'Base command for ToolModifiers plugin.'
+		permission 'toolmodifiers.command'
+	}
+
+	permission 'toolmodifiers.*', {
+		deny NOT_OPERATOR
+		child 'toolmodifiers.command', INHERIT
+		child 'toolmodifiers.command.*', INHERIT
+		child 'toolmodifiers.hammer.*', INHERIT
+		child 'toolmodifiers.excavator.*', INHERIT
+		child 'toolmodifiers.lumberaxe.*', INHERIT
+	}
+
+	permission 'toolmodifiers.command', {
+		deny NOT_OPERATOR
+	}
+
+	permission 'toolmodifiers.command.*', {
+		deny NOT_OPERATOR
+		child 'toolmodifiers.command.give.*', INHERIT
+	}
+
+	permission 'toolmodifiers.command.give.hammer', {
+		deny NOT_OPERATOR
+	}
+
+	permission 'toolmodifiers.command.give.excavator', {
+		deny NOT_OPERATOR
+	}
+
+	permission 'toolmodifiers.command.give.lumberaxe', {
+		deny NOT_OPERATOR
+	}
+
+	permission 'toolmodifiers.hammer.*', {
+		deny NOT_OPERATOR
+		child 'toolmodifiers.hammer.craft', INHERIT
+		child 'toolmodifiers.hammer.use', INHERIT
+	}
+
+	permission 'toolmodifiers.hammer.craft', {
+		allow ALL
+	}
+
+	permission 'toolmodifiers.hammer.use', {
+		allow ALL
+	}
+
+	permission 'toolmodifiers.excavator.*', {
+		deny NOT_OPERATOR
+		child 'toolmodifiers.excavator.craft', INHERIT
+		child 'toolmodifiers.excavator.use', INHERIT
+	}
+
+	permission 'toolmodifiers.excavator.craft', {
+		allow ALL
+	}
+
+	permission 'toolmodifiers.excavator.use', {
+		allow ALL
+	}
+
+	permission 'toolmodifiers.lumberaxe.*', {
+		deny NOT_OPERATOR
+		child 'toolmodifiers.lumberaxe.craft', INHERIT
+		child 'toolmodifiers.lumberaxe.use', INHERIT
+		child 'toolmodifiers.lumberaxe.tree', INHERIT
+	}
+
+	permission 'toolmodifiers.lumberaxe.craft', {
+		allow ALL
+	}
+
+	permission 'toolmodifiers.lumberaxe.use', {
+		allow ALL
+	}
+
+	permission 'toolmodifiers.lumberaxe.tree', {
+		allow ALL
+	}
+}
+
+jar {
+	archiveName project.name + '-' + project.version + '.jar'
+
+	from('.') {
+		include '*.yml'
+	}
+
+	entryCompression ZipEntryCompression.DEFLATED
+}
+
+sourceSets {
+	toolmodifiers {
+		java {
+			srcDir "src/main/java"
+		}
+	}
+}
+
+repositories {
+	flatDir {
+		dirs 'dependencies'
+	}
+}
+
+dependencies {
+	bukkitApi()
+
+	implementation name: 'Factions'
+	implementation name: 'MassiveCore'
+	implementation name: 'Towny'
+}

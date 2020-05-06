@@ -132,7 +132,7 @@ public class Events implements Listener
 					int exp = BlockUtils.getExpDrop(b);
 					b.setType(Material.AIR);
 
-					if (drops != null && drops.size() > 0) for (ItemStack drop : drops)
+					if (drops.size() > 0) for (ItemStack drop : drops)
 					{
 						if(world != null) world.dropItemNaturally(loc, drop);
 						if(world != null && exp > 0 && !tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) world.spawn(loc, ExperienceOrb.class).setExperience(exp);

@@ -1,6 +1,5 @@
 package k4neps.toolmodifiers.utils;
 
-import io.netty.channel.Channel;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -43,15 +42,6 @@ public final class ReflectionUtils
 			return null;
 		}
 		return obcClass;
-	}
-
-	public static Channel getChannel(Player player) throws SecurityException, NoSuchMethodException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException
-	{
-		Object connection = getConnection(player);
-		Field connectionField = connection.getClass().getField("networkManager");
-		Object networkManager = connectionField.get(connection);
-		Field channelField = networkManager.getClass().getField("channel");
-		return (Channel) channelField.get(networkManager);
 	}
 
 	public static Object getConnection(Player player) throws SecurityException, NoSuchMethodException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException

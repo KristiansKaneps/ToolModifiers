@@ -1,13 +1,7 @@
 package k4neps.toolmodifiers.utils;
 
-import com.massivecraft.factions.entity.BoardColl;
-import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.MPlayer;
-import com.massivecraft.massivecore.ps.PS;
-import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
-import com.palmergames.bukkit.towny.object.Resident;
-import com.palmergames.bukkit.towny.object.TownyUniverse;
-import org.bukkit.ChatColor;
+import k4neps.toolmodifiers.integration.FactionsHook;
+import k4neps.toolmodifiers.integration.TownyHook;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -142,7 +136,7 @@ public class Area
 
 		this.playerYaw = player.getLocation().getYaw();
 		this.block = block;
-		this.face = lastBlocks == null || lastBlocks.size() < 2 ? BlockFace.DOWN : lastBlocks.get(1).getFace(lastBlocks.get(0));
+		this.face = lastBlocks.size() < 2 ? BlockFace.DOWN : lastBlocks.get(1).getFace(lastBlocks.get(0));
 		this.size = size;
 
 		init();
@@ -198,58 +192,10 @@ public class Area
 	{
 		switch(plugin)
 		{
-			case FACTIONS: {
-				MPlayer mPlayer = MPlayer.get(player);
-
-				if(mPlayer == null) return true;
-				if(mPlayer.isOverriding()) return false;
-
-				Faction factionAtBlock = BoardColl.get().getFactionAt(PS.valueOf(block));
-
-				if(factionAtBlock == null) return false;
-
-				Faction playerFaction = mPlayer.getFaction();
-
-				if(playerFaction == null) return true;
-
-				String pfName = ChatColor.stripColor(playerFaction.getName());
-				String fbName = ChatColor.stripColor(factionAtBlock.getName());
-
-				return !(fbName.equalsIgnoreCase(pfName) || fbName.equalsIgnoreCase(faction_wilderness));
-			}
-			case TOWNY: {
-
-				Resident resident = null;
-				boolean inATown = false;
-
-				try
-				{
-					resident = TownyUniverse.getDataSource().getResident(player.getName());
-					inATown = true;
-				}
-				catch(NotRegisteredException e)
-				{
-					inATown = false;
-				}
-
-				if(!towny_protect_wild && TownyUniverse.isWilderness(block))
-					return false;
-				if(towny_protect_wild && TownyUniverse.isWilderness(block))
-					return true;
-
-				boolean sameTown = false;
-
-				try
-				{
-					sameTown = inATown && resident.getTown().getUuid().compareTo(TownyUniverse.getTownBlock(block.getLocation()).getTown().getUuid()) == 0;
-				}
-				catch(NotRegisteredException e)
-				{
-					sameTown = false;
-				}
-
-				return !sameTown;
-			}
+			case FACTIONS:
+				return FactionsHook.intersectsTerritory(block, player, plugin, faction_wilderness);
+			case TOWNY:
+				return TownyHook.intersectsTerritory(block, player, plugin, towny_protect_wild);
 			default: return false;
 		}
 	}

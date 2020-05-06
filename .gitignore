@@ -1,4 +1,5 @@
 .idea/
+.gradle/
 out/
 *.iml
 *.class
@@ -13,3 +14,4 @@ hs_err_pid*
 *mstore/
 /minecraft-server/
 /dependencies/
+/build/
