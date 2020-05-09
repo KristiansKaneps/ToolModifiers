@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Kristians on 7/28/2017.
@@ -42,7 +43,6 @@ public final class BlockUtils
 
 		switch(type)
 		{
-			case LEGACY_DIRT:
 			case DIRT:
 			case GRASS_BLOCK:
 			case COARSE_DIRT:
@@ -77,8 +77,6 @@ public final class BlockUtils
 			case STONE_BRICKS:
 			case STONE_STAIRS:
 			case CHISELED_STONE_BRICKS:
-			case LEGACY_ENDER_STONE:
-			case LEGACY_STONE:
 			case CRACKED_STONE_BRICKS:
 			case END_STONE_BRICK_SLAB:
 			case END_STONE_BRICK_STAIRS:
@@ -91,33 +89,21 @@ public final class BlockUtils
 			case MOSSY_STONE_BRICK_STAIRS:
 			case MOSSY_STONE_BRICK_WALL:
 			case MOSSY_STONE_BRICKS:
-			case LEGACY_MOSSY_COBBLESTONE:
 			case CHISELED_RED_SANDSTONE:
 			case SANDSTONE_SLAB:
 			case SANDSTONE_WALL:
 			case CHISELED_SANDSTONE:
 			case CUT_RED_SANDSTONE:
 			case CUT_SANDSTONE:
-			case LEGACY_RED_SANDSTONE:
-			case LEGACY_SANDSTONE:
 			case CUT_RED_SANDSTONE_SLAB:
 			case CUT_SANDSTONE_SLAB:
 			case RED_SANDSTONE_SLAB:
 			case RED_SANDSTONE_WALL:
-			case LEGACY_RED_SANDSTONE_STAIRS:
-			case LEGACY_SANDSTONE_STAIRS:
 			case SMOOTH_SANDSTONE_STAIRS:
 			case SMOOTH_SANDSTONE_SLAB:
 			case SMOOTH_RED_SANDSTONE_STAIRS:
 			case SMOOTH_RED_SANDSTONE_SLAB:
-			case LEGACY_REDSTONE_ORE:
 			case REDSTONE_LAMP:
-			case LEGACY_REDSTONE_BLOCK:
-			case LEGACY_REDSTONE_LAMP_ON:
-			case LEGACY_REDSTONE_LAMP_OFF:
-			case LEGACY_COBBLESTONE_STAIRS:
-			case LEGACY_GLOWSTONE:
-			case LEGACY_COBBLESTONE:
 			case COBBLESTONE_SLAB:
 			case GRINDSTONE:
 			case STONE:
@@ -125,8 +111,6 @@ public final class BlockUtils
 			case STONE_PRESSURE_PLATE:
 			case STONE_SLAB:
 			case STONE_BRICK_SLAB:
-			case LEGACY_STONE_SLAB2:
-			case LEGACY_DOUBLE_STONE_SLAB2:
 			case COBBLESTONE:
 			case COBBLESTONE_WALL:
 			case MOSSY_COBBLESTONE_WALL:
@@ -138,7 +122,6 @@ public final class BlockUtils
 			case GLOWSTONE:
 			case RED_SANDSTONE:
 			case SANDSTONE_STAIRS:
-			case LEGACY_GLOWING_REDSTONE_ORE:
 			case COAL_ORE:
 			case DIAMOND_ORE:
 			case EMERALD_ORE:
@@ -181,25 +164,19 @@ public final class BlockUtils
 			case RED_SHULKER_BOX:
 			case WHITE_SHULKER_BOX:
 			case YELLOW_SHULKER_BOX:
-			case LEGACY_BURNING_FURNACE:
 			case DAYLIGHT_DETECTOR:
-			case LEGACY_DAYLIGHT_DETECTOR_INVERTED:
 			case CAULDRON:
 			case DETECTOR_RAIL:
 			case DISPENSER:
-			case LEGACY_DOUBLE_STEP:
 			case ENCHANTING_TABLE:
 			case END_CRYSTAL:
 			case END_GATEWAY:
 			case ENDER_CHEST:
-			case LEGACY_STEP:
 			case FURNACE:
 			case ICE:
 			case FROSTED_ICE:
 			case PACKED_ICE:
 			case LEVER:
-			case LEGACY_HARD_CLAY:
-			case LEGACY_STAINED_CLAY:
 			case DROPPER:
 			case FLOWER_POT:
 			case HOPPER:
@@ -215,7 +192,6 @@ public final class BlockUtils
 			case STICKY_PISTON:
 			case POWERED_RAIL:
 			case PRISMARINE:
-			case LEGACY_PURPUR_DOUBLE_SLAB:
 			case PURPUR_PILLAR:
 			case PURPUR_SLAB:
 			case PURPUR_STAIRS:
@@ -312,6 +288,8 @@ public final class BlockUtils
 			case DARK_PRISMARINE:
 			case HEAVY_WEIGHTED_PRESSURE_PLATE:
 			case LIGHT_WEIGHTED_PRESSURE_PLATE:
+			case BLAST_FURNACE:
+			case SMOKER:
 				return isPickaxe(with);
 			case DARK_OAK_WOOD:
 			case STRIPPED_ACACIA_WOOD:
@@ -320,18 +298,11 @@ public final class BlockUtils
 			case STRIPPED_JUNGLE_WOOD:
 			case STRIPPED_OAK_WOOD:
 			case STRIPPED_SPRUCE_WOOD:
-			case LEGACY_WOOD:
-			case LEGACY_JUNGLE_WOOD_STAIRS:
-			case LEGACY_SPRUCE_WOOD_STAIRS:
 			case ACACIA_WOOD:
 			case BIRCH_WOOD:
 			case JUNGLE_WOOD:
 			case OAK_WOOD:
 			case SPRUCE_WOOD:
-			case LEGACY_WOOD_DOUBLE_STEP:
-			case LEGACY_WOOD_PLATE:
-			case LEGACY_BIRCH_WOOD_STAIRS:
-			case LEGACY_WOOD_STEP:
 			case BIRCH_STAIRS:
 			case JUNGLE_STAIRS:
 			case OAK_STAIRS:
@@ -371,9 +342,8 @@ public final class BlockUtils
 			case JUNGLE_LOG:
 			case OAK_LOG:
 			case SPRUCE_LOG:
-			case LEGACY_LOG_2:
 			case CHEST:
-			case LEGACY_SIGN_POST:
+			case TRAPPED_CHEST:
 			case PUMPKIN:
 			case MELON:
 			case ACACIA_SLAB:
@@ -476,8 +446,6 @@ public final class BlockUtils
 			case JUNGLE_LEAVES:
 			case OAK_LEAVES:
 			case SPRUCE_LEAVES:
-			case LEGACY_LEAVES_2:
-			case LEGACY_LEAVES:
 				return true;
 			default: return false;
 		}
@@ -499,8 +467,6 @@ public final class BlockUtils
 			case STRIPPED_JUNGLE_LOG:
 			case STRIPPED_OAK_LOG:
 			case STRIPPED_SPRUCE_LOG:
-			case LEGACY_LOG_2:
-			case LEGACY_LOG:
 				return true;
 			default: return false;
 		}
@@ -513,7 +479,6 @@ public final class BlockUtils
 			case COAL_ORE:
 			case DIAMOND_ORE:
 			case EMERALD_ORE:
-			case LEGACY_GLOWING_REDSTONE_ORE:
 			case LAPIS_ORE:
 			case NETHER_QUARTZ_ORE:
 			case REDSTONE_ORE:
@@ -521,8 +486,6 @@ public final class BlockUtils
 			default: return false;
 		}
 	}
-
-	private static Random dropRandom = new Random();
 
 	public static Collection<ItemStack> getDrops(Block block, ItemStack tool)
 	{
@@ -536,19 +499,19 @@ public final class BlockUtils
 		if(silkTouchFound)
 		{
 			toReturn = new HashSet<>();
-			if(block.getState() instanceof InventoryHolder)
+			/*if(block.getState() instanceof InventoryHolder)
 			{
 				InventoryHolder invHolder = (InventoryHolder) block.getState();
 				ItemStack[] contents = invHolder.getInventory().getContents();
 				for(ItemStack stack : contents)
-					if(stack != null) toReturn.add(stack);
-			}
+					if(stack != null && stack.getType() != Material.AIR) toReturn.add(stack);
+			}*/
 			toReturn.add(new ItemStack(block.getType(), 1));
 		}
 		else if(fortuneFound && isFortuneOre(block))
 		{
 			int baseDrop = 1;
-			int bonus = (int) (dropRandom.nextDouble() * (enchantments.get(Enchantment.LOOT_BONUS_BLOCKS) + 2)) - 1;
+			int bonus = (int) Math.round(ThreadLocalRandom.current().nextFloat() * (enchantments.get(Enchantment.LOOT_BONUS_BLOCKS) + 2) - 0.1f) - 1;
 			if(bonus < 0) bonus = 0;
 
 			ItemStack toDrop = block.getDrops().toArray(new ItemStack[0])[0];
@@ -557,12 +520,11 @@ public final class BlockUtils
 			switch(block.getType())
 			{
 				case REDSTONE_ORE:
-				case LEGACY_GLOWING_REDSTONE_ORE:
-					baseDrop = 4 + dropRandom.nextInt(2);
+					baseDrop = 4 + ThreadLocalRandom.current().nextInt(2);
 					quantity = baseDrop + bonus;
 					break;
 				case LAPIS_ORE:
-					baseDrop = 6 + dropRandom.nextInt(3);
+					baseDrop = 6 + ThreadLocalRandom.current().nextInt(3);
 				default:
 					quantity = baseDrop * (bonus + 1);
 			}
@@ -583,18 +545,13 @@ public final class BlockUtils
 	private static final Map<Material, Bounds> expRandMap = new HashMap<>();
 	static
 	{
-		final Bounds _1_4 = new Bounds(1, 4);
-		final Bounds _0_2 = new Bounds(0, 2);
-		final Bounds _3_5 = new Bounds(3, 5);
-		final Bounds _2_5 = new Bounds(2, 5);
-		final Bounds _4_7 = new Bounds(4, 7);
-		expRandMap.put(Material.REDSTONE_ORE, _1_4);
-		expRandMap.put(Material.LEGACY_GLOWING_REDSTONE_ORE, _1_4);
-		expRandMap.put(Material.COAL_ORE, _0_2);
-		expRandMap.put(Material.DIAMOND_ORE, _3_5);
-		expRandMap.put(Material.LAPIS_ORE, _3_5);
-		expRandMap.put(Material.NETHER_QUARTZ_ORE, _2_5);
-		expRandMap.put(Material.EMERALD_ORE, _4_7);
+		expRandMap.put(Material.REDSTONE_ORE, new Bounds(1, 5));
+		expRandMap.put(Material.COAL_ORE, new Bounds(0, 2));
+		expRandMap.put(Material.DIAMOND_ORE, new Bounds(3, 7));
+		expRandMap.put(Material.LAPIS_ORE, new Bounds(2, 5));
+		expRandMap.put(Material.NETHER_QUARTZ_ORE, new Bounds(2, 5));
+		expRandMap.put(Material.EMERALD_ORE, new Bounds(3, 7));
+		expRandMap.put(Material.SPAWNER, new Bounds(15, 43));
 	}
 
 	public static int getExpDrop(Block block)
@@ -606,20 +563,18 @@ public final class BlockUtils
 
 	private static class Bounds
 	{
-		private static final Random rand = new Random();
-
 		public final int max;
 		public final int min;
 
 		private Bounds(int min /* including */, int max /* including */)
 		{
 			this.min = min;
-			this.max = min >= max ? min + 1 : max;
+			this.max = max;
 		}
 
 		public int rand()
 		{
-			return rand.nextInt((max + 1) - min) + min;
+			return ThreadLocalRandom.current().nextInt(min, max + 1);
 		}
 	}
 }

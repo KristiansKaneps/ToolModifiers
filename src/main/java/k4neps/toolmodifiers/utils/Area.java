@@ -87,12 +87,29 @@ public class Area
 			{
 				case DOWN:
 				case UP:
-					boolean rotate = (minX != minY || maxX != maxY) && Utils.check(Utils.fixValue((playerYaw - 90) % 360, r -> r < 0, r -> r + 360), rot -> (rot >= 45 && rot < 135) || (rot >= 225 && rot < 315));
+					boolean rotate = (minX != minY || maxX != maxY)
+					                 && Utils.check(
+					                 		Utils.fixValue(
+					                 				(playerYaw - 90) % 360,
+						                                   r -> r < 0, r -> r + 360
+						                    ),
+						                    rot -> (rot >= 45 && rot < 135) || (rot >= 225 && rot < 315)
+									);
 					consumer.accept(idx.incrementAfter(), loc.add(rotate ? minX : minY, 0, rotate ? minY : minX).getBlock());
 					for(int y = 0; y < (rotate ? xLen : yLen); y++)
 					{
-						for (int x = 0; x < (rotate ? yLen : xLen) - 1; x++) consumer.accept(idx.incrementAfter(), loc.add(0, 0, dx).getBlock());
-						if(y + 1 < (rotate ? xLen : yLen)) consumer.accept(idx.incrementAfter(), loc.add(1, 0, 0).getBlock());
+						for (int x = 0; x < (rotate ? yLen : xLen) - 1; x++)
+						{
+							loc.add(0, 0, dx);
+							if(!isLocationCoordsEquals(baseLoc, loc))
+								consumer.accept(idx.incrementAfter(), loc.getBlock());
+						}
+						if(y + 1 < (rotate ? xLen : yLen))
+						{
+							loc.add(1, 0, 0);
+							if(!isLocationCoordsEquals(baseLoc, loc))
+								consumer.accept(idx.incrementAfter(), loc.getBlock());
+						}
 						dx = -dx;
 					}
 					//int i_ = minX, _i = maxX, j_ = minY, _j = maxY;
@@ -107,8 +124,18 @@ public class Area
 					consumer.accept(idx.incrementAfter(), loc.add(0, minY, minX).getBlock());
 					for(int y = 0; y < yLen; y++)
 					{
-						for (int x = 0; x < xLen - 1; x++) consumer.accept(idx.incrementAfter(), loc.add(0, 0, dx).getBlock());
-						if(y + 1 < yLen) consumer.accept(idx.incrementAfter(), loc.add(0, 1, 0).getBlock());
+						for (int x = 0; x < xLen - 1; x++)
+						{
+							loc.add(0, 0, dx);
+							if(!isLocationCoordsEquals(baseLoc, loc))
+								consumer.accept(idx.incrementAfter(), loc.getBlock());
+						}
+						if(y + 1 < yLen)
+						{
+							loc.add(0, 1, 0);
+							if(!isLocationCoordsEquals(baseLoc, loc))
+								consumer.accept(idx.incrementAfter(), loc.getBlock());
+						}
 						dx = -dx;
 					}
 					//Utils.intRange2D(minX, maxX, minY, maxY, (i, j) -> consumer.accept(idx.incrementAfter(), new Location(baseLoc.getWorld(), baseLoc.getX(), baseLoc.getY() + j, baseLoc.getZ() + i).getBlock()));
@@ -118,12 +145,29 @@ public class Area
 					consumer.accept(idx.incrementAfter(), loc.add(minX, minY, 0).getBlock());
 					for(int y = 0; y < yLen; y++)
 					{
-						for (int x = 0; x < xLen - 1; x++) consumer.accept(idx.incrementAfter(), loc.add(dx, 0, 0).getBlock());
-						if(y + 1 < yLen) consumer.accept(idx.incrementAfter(), loc.add(0, 1, 0).getBlock());
+						for (int x = 0; x < xLen - 1; x++)
+						{
+							loc.add(dx, 0, 0);
+							if (!isLocationCoordsEquals(baseLoc, loc))
+								consumer.accept(idx.incrementAfter(), loc.getBlock());
+						}
+						if(y + 1 < yLen)
+						{
+							loc.add(0, 1, 0);
+							if(!isLocationCoordsEquals(baseLoc, loc))
+								consumer.accept(idx.incrementAfter(), loc.getBlock());
+						}
 						dx = -dx;
 					}
 					//Utils.intRange2D(minX, maxX, minY, maxY, (i, j) -> consumer.accept(idx.incrementAfter(), new Location(baseLoc.getWorld(), baseLoc.getX() + i, baseLoc.getY() + j, baseLoc.getZ()).getBlock()));
 			}
+		}
+
+		private static boolean isLocationCoordsEquals(Location loc1, Location loc2)
+		{
+			return loc1.getBlockX() == loc2.getBlockX()
+			       && loc1.getBlockY() == loc2.getBlockY()
+			       && loc1.getBlockZ() == loc2.getBlockZ();
 		}
 	}
 
@@ -156,7 +200,7 @@ public class Area
 	{
 		Location loc = block.getLocation();
 
-		blocks = new Block[size.getTotalBlockCount()];
+		blocks = new Block[size.getTotalBlockCount() - 1];
 
 		size.forEachBlock(playerYaw, loc, face, (i, b) -> blocks[i] = b);
 	}

@@ -55,7 +55,7 @@ public class Events implements Listener
 		lumberAxeDropsAtSrc = tm.getConfig().getBoolean("lumberaxe.drop_tree_logs_at_source");
 	}
 
-	@EventHandler(priority = EventPriority.LOW)
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onBlockBreak(BlockBreakEvent event)
 	{
 		if(event.isCancelled()) return;
@@ -84,6 +84,8 @@ public class Events implements Listener
 		Location loc = block.getLocation();
 		World world = loc.getWorld();
 
+		if(world == null) return;
+
 		if(block.getType() == Material.AIR || !BlockUtils.canMineBlock(block, tool)) return;
 
 		if(PermCheck.canUseLumberaxeToCutTrees(p) && lore.contains(LumberaxeRecipe.LUMBERAXE_MODIFIER_STRING) && isTree(block))
@@ -93,12 +95,12 @@ public class Events implements Listener
 			{
 				for(Block log : logs)
 				{
-					if(Area.intersectsTerritory(log, p)) break; // continue;
+					if(Area.intersectsTerritory(log, p)) continue;
 					if(p.getGameMode() == GameMode.SURVIVAL)
 					{
 						log.getDrops(tool).forEach(eLogIs -> {
-							if (lumberAxeDropsAtSrc && loc.getWorld() != null)
-								loc.getWorld().dropItemNaturally(loc, eLogIs);
+							if (lumberAxeDropsAtSrc)
+								world.dropItemNaturally(loc, eLogIs);
 							else log.breakNaturally(tool);
 						});
 						log.setType(Material.AIR);
@@ -126,25 +128,28 @@ public class Events implements Listener
 			{
 				if (b == null || b.getType() == Material.AIR || Area.intersectsTerritory(b, p) || b.getType().getHardness() > srcHardness + hardnessThreshold || !BlockUtils.canMineBlock(b, tool))
 					continue;
+
 				if (p.getGameMode() == GameMode.SURVIVAL)
 				{
 					Collection<ItemStack> drops = BlockUtils.getDrops(b, tool);
 					int exp = BlockUtils.getExpDrop(b);
+
 					b.setType(Material.AIR);
 
-					if (drops.size() > 0) for (ItemStack drop : drops)
-					{
-						if(world != null) world.dropItemNaturally(loc, drop);
-						if(world != null && exp > 0 && !tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) world.spawn(loc, ExperienceOrb.class).setExperience(exp);
-					}
+					boolean isSilkTouch = tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH);
+
+					if(exp > 0 && !isSilkTouch)
+						world.spawn(loc, ExperienceOrb.class).setExperience(exp);
+
+					if (drops.size() > 0)
+						for (ItemStack drop : drops)
+							world.dropItemNaturally(loc, drop);
 
 					continue;
 				}
 
 				b.setType(Material.AIR);
 			}
-
-			return;
 		}
 	}
 
@@ -235,18 +240,12 @@ public class Events implements Listener
 					Block b = loc.getBlock();
 					if (b.getType() == type && checkLine(b, UP, _b -> _b.getType() == leafType))
 					{
-						boolean add = true;
-
-						Block test = b.getRelative(BlockFace.DOWN);
-						int searchIterations = 0;
-						while(test.getType() == type && searchIterations <= maxSearch)
-						{
-							searchIterations++;
-							test = test.getRelative(BlockFace.DOWN);
-						}
+						Location testSrcLoc = new Location(srcBlock.getLocation().getWorld(), loc.getX(), srcBlock.getLocation().getY(), loc.getZ());
+						Block testSrc = testSrcLoc.getBlock();
 
 						if(
-								checkLine(b, DOWN, _b -> {
+								testSrc != srcBlock
+								&& !checkLine(b, DOWN, _b -> {
 									Block potSrc = _b.getRelative(UP);
 									Block potSrcSide;
 									return
@@ -260,10 +259,7 @@ public class Events implements Listener
 												)
 											;
 								})
-						)
-							add = false;
-
-						if(add) existingList.add(b);
+						) existingList.add(b);
 					}
 				}
 			}

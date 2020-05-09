@@ -4,7 +4,7 @@ plugins {
 	id 'dev.ethp.bukkit' version '0.1.6'
 }
 
-version = '1.2.1'
+version = '1.2.3'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
@@ -30,7 +30,7 @@ bukkit {
 	}
 
 	permission 'toolmodifiers.*', {
-		deny NOT_OPERATOR
+		allow OPERATOR
 		child 'toolmodifiers.command', INHERIT
 		child 'toolmodifiers.command.*', INHERIT
 		child 'toolmodifiers.hammer.*', INHERIT
@@ -39,28 +39,28 @@ bukkit {
 	}
 
 	permission 'toolmodifiers.command', {
-		deny NOT_OPERATOR
+		allow OPERATOR
 	}
 
 	permission 'toolmodifiers.command.*', {
-		deny NOT_OPERATOR
+		allow OPERATOR
 		child 'toolmodifiers.command.give.*', INHERIT
 	}
 
 	permission 'toolmodifiers.command.give.hammer', {
-		deny NOT_OPERATOR
+		allow OPERATOR
 	}
 
 	permission 'toolmodifiers.command.give.excavator', {
-		deny NOT_OPERATOR
+		allow OPERATOR
 	}
 
 	permission 'toolmodifiers.command.give.lumberaxe', {
-		deny NOT_OPERATOR
+		allow OPERATOR
 	}
 
 	permission 'toolmodifiers.hammer.*', {
-		deny NOT_OPERATOR
+		allow OPERATOR
 		child 'toolmodifiers.hammer.craft', INHERIT
 		child 'toolmodifiers.hammer.use', INHERIT
 	}
@@ -74,7 +74,7 @@ bukkit {
 	}
 
 	permission 'toolmodifiers.excavator.*', {
-		deny NOT_OPERATOR
+		allow OPERATOR
 		child 'toolmodifiers.excavator.craft', INHERIT
 		child 'toolmodifiers.excavator.use', INHERIT
 	}
@@ -88,7 +88,7 @@ bukkit {
 	}
 
 	permission 'toolmodifiers.lumberaxe.*', {
-		deny NOT_OPERATOR
+		allow OPERATOR
 		child 'toolmodifiers.lumberaxe.craft', INHERIT
 		child 'toolmodifiers.lumberaxe.use', INHERIT
 		child 'toolmodifiers.lumberaxe.tree', INHERIT
