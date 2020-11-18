@@ -127,7 +127,6 @@ public class Events implements Listener
 				return;
 		}
 
-		System.out.println("new displayname: " + displayName);
 		meta.setDisplayName(displayName);
 
 		clickedItem.setItemMeta(meta);
