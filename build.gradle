@@ -1,10 +1,11 @@
 plugins {
 	id 'java'
 	id 'idea'
-	id 'dev.ethp.bukkit' version '0.1.6'
+	id 'dev.ethp.bukkit' version '0.2.5'
 }
 
-version = '1.2.3'
+version = '1.2.4'
+def spigotVersion = '1.16.2'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
@@ -20,7 +21,7 @@ bukkit {
 	dependency 'Towny', OPTIONAL
 
 	api {
-		version '1.15'
+		version spigotVersion
 	}
 
 	command 'toolmodifiers', {
@@ -107,16 +108,6 @@ bukkit {
 	}
 }
 
-jar {
-	archiveName project.name + '-' + project.version + '.jar'
-
-	from('.') {
-		include '*.yml'
-	}
-
-	entryCompression ZipEntryCompression.DEFLATED
-}
-
 sourceSets {
 	toolmodifiers {
 		java {
@@ -129,12 +120,40 @@ repositories {
 	flatDir {
 		dirs 'dependencies'
 	}
+	maven {
+		url 'https://repo.codemc.org/repository/maven-public/'
+		name 'codemc'
+	}
+}
+
+configurations {
+	shadow
 }
 
 dependencies {
-	bukkitApi()
+	spigotApi()
+
+	// Useful for rewrite!!!
+	//implementation 'de.tr7zw:nbt-data-api:2.6.0'
+	//implementation 'de.tr7zw:nbt-injector:2.6.0'
+	//shadow 'de.tr7zw:nbt-data-api:2.6.0'
+	//shadow 'de.tr7zw:nbt-injector:2.6.0'
 
 	implementation name: 'Factions'
 	implementation name: 'MassiveCore'
 	implementation name: 'Towny'
+}
+
+jar {
+	archiveName project.name + '-' + project.version + '.jar'
+
+	from('.') {
+		include '*.yml'
+	}
+
+	jar {
+		from configurations.shadow.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+
+	entryCompression ZipEntryCompression.DEFLATED
 }

@@ -72,7 +72,11 @@ public final class BlockUtils
 			case YELLOW_CONCRETE_POWDER:
 			case CLAY:
 			case RED_SAND:
+			case SOUL_SOIL:
+			case PODZOL:
 				return isShovel(with);
+			case GRANITE_STAIRS:
+			case GRANITE_WALL:
 			case STONE_BRICK_WALL:
 			case STONE_BRICKS:
 			case STONE_STAIRS:
@@ -290,6 +294,78 @@ public final class BlockUtils
 			case LIGHT_WEIGHTED_PRESSURE_PLATE:
 			case BLAST_FURNACE:
 			case SMOKER:
+			case BLACKSTONE:
+			case BLACKSTONE_SLAB:
+			case BLACKSTONE_STAIRS:
+			case BLACKSTONE_WALL:
+			case CHISELED_POLISHED_BLACKSTONE:
+			case GILDED_BLACKSTONE:
+			case POLISHED_BLACKSTONE:
+			case CRACKED_POLISHED_BLACKSTONE_BRICKS:
+			case POLISHED_BLACKSTONE_BRICK_SLAB:
+			case POLISHED_BLACKSTONE_BRICK_STAIRS:
+			case POLISHED_BLACKSTONE_BRICK_WALL:
+			case POLISHED_BLACKSTONE_BRICKS:
+			case POLISHED_BLACKSTONE_BUTTON:
+			case POLISHED_BLACKSTONE_PRESSURE_PLATE:
+			case POLISHED_BLACKSTONE_SLAB:
+			case POLISHED_BLACKSTONE_STAIRS:
+			case POLISHED_BLACKSTONE_WALL:
+			case POLISHED_ANDESITE_STAIRS:
+			case POLISHED_BASALT:
+			case POLISHED_DIORITE_STAIRS:
+			case POLISHED_GRANITE_STAIRS:
+			case BASALT:
+			case ANCIENT_DEBRIS:
+			case RESPAWN_ANCHOR:
+			case TERRACOTTA:
+			case GREEN_TERRACOTTA:
+			case BLACK_GLAZED_TERRACOTTA:
+			case BLACK_TERRACOTTA:
+			case BLUE_GLAZED_TERRACOTTA:
+			case BLUE_TERRACOTTA:
+			case BROWN_GLAZED_TERRACOTTA:
+			case BROWN_TERRACOTTA:
+			case CYAN_GLAZED_TERRACOTTA:
+			case CYAN_TERRACOTTA:
+			case GRAY_GLAZED_TERRACOTTA:
+			case GRAY_TERRACOTTA:
+			case GREEN_GLAZED_TERRACOTTA:
+			case LIGHT_BLUE_GLAZED_TERRACOTTA:
+			case LIGHT_BLUE_TERRACOTTA:
+			case LIGHT_GRAY_GLAZED_TERRACOTTA:
+			case LIGHT_GRAY_TERRACOTTA:
+			case LIME_GLAZED_TERRACOTTA:
+			case LIME_TERRACOTTA:
+			case MAGENTA_GLAZED_TERRACOTTA:
+			case MAGENTA_TERRACOTTA:
+			case ORANGE_GLAZED_TERRACOTTA:
+			case ORANGE_TERRACOTTA:
+			case PINK_GLAZED_TERRACOTTA:
+			case PINK_TERRACOTTA:
+			case PURPLE_GLAZED_TERRACOTTA:
+			case PURPLE_TERRACOTTA:
+			case RED_GLAZED_TERRACOTTA:
+			case RED_TERRACOTTA:
+			case WHITE_GLAZED_TERRACOTTA:
+			case WHITE_TERRACOTTA:
+			case YELLOW_GLAZED_TERRACOTTA:
+			case YELLOW_TERRACOTTA:
+			case NETHER_BRICK_WALL:
+			case NETHER_BRICKS:
+			case NETHER_GOLD_ORE:
+			case NETHER_PORTAL:
+			case NETHERITE_BLOCK:
+			case RED_NETHER_BRICK_WALL:
+			case CHISELED_NETHER_BRICKS:
+			case RED_NETHER_BRICK_STAIRS:
+			case CRACKED_NETHER_BRICKS:
+			case CRYING_OBSIDIAN:
+			case CRIMSON_NYLIUM:
+			case WARPED_NYLIUM:
+			case ANDESITE_STAIRS:
+			case DIORITE_STAIRS:
+			case LODESTONE:
 				return isPickaxe(with);
 			case DARK_OAK_WOOD:
 			case STRIPPED_ACACIA_WOOD:
@@ -375,6 +451,36 @@ public final class BlockUtils
 			case STRIPPED_JUNGLE_LOG:
 			case STRIPPED_OAK_LOG:
 			case STRIPPED_SPRUCE_LOG:
+			case CRIMSON_FENCE:
+			case WARPED_FENCE:
+			case CRIMSON_FENCE_GATE:
+			case WARPED_FENCE_GATE:
+			case CRIMSON_BUTTON:
+			case CRIMSON_DOOR:
+			case CRIMSON_PLANKS:
+			case CRIMSON_PRESSURE_PLATE:
+			case CRIMSON_SIGN:
+			case CRIMSON_SLAB:
+			case CRIMSON_STAIRS:
+			case CRIMSON_TRAPDOOR:
+			case CRIMSON_WALL_SIGN:
+			case WARPED_BUTTON:
+			case WARPED_DOOR:
+			case WARPED_PLANKS:
+			case WARPED_PRESSURE_PLATE:
+			case WARPED_SIGN:
+			case WARPED_SLAB:
+			case WARPED_STAIRS:
+			case WARPED_TRAPDOOR:
+			case WARPED_WALL_SIGN:
+			case CRIMSON_STEM:
+			case WARPED_STEM:
+			case STRIPPED_CRIMSON_STEM:
+			case STRIPPED_WARPED_STEM:
+			case CRIMSON_HYPHAE:
+			case WARPED_HYPHAE:
+			case STRIPPED_CRIMSON_HYPHAE:
+			case STRIPPED_WARPED_HYPHAE:
 				return isAxe(with);
 			default: return false;
 		}
@@ -386,6 +492,7 @@ public final class BlockUtils
 		{
 			case STONE_SHOVEL:
 			case DIAMOND_SHOVEL:
+			case NETHERITE_SHOVEL:
 			case GOLDEN_SHOVEL:
 			case IRON_SHOVEL:
 			case WOODEN_SHOVEL:
@@ -399,6 +506,7 @@ public final class BlockUtils
 		switch(item.getType())
 		{
 			case DIAMOND_PICKAXE:
+			case NETHERITE_PICKAXE:
 			case GOLDEN_PICKAXE:
 			case IRON_PICKAXE:
 			case STONE_PICKAXE:
@@ -413,6 +521,7 @@ public final class BlockUtils
 		switch(item.getType())
 		{
 			case DIAMOND_AXE:
+			case NETHERITE_AXE:
 			case GOLDEN_AXE:
 			case IRON_AXE:
 			case STONE_AXE:
@@ -427,6 +536,7 @@ public final class BlockUtils
 		switch(item.getType())
 		{
 			case DIAMOND_HOE:
+			case NETHERITE_HOE:
 			case GOLDEN_HOE:
 			case IRON_HOE:
 			case STONE_HOE:
@@ -467,6 +577,14 @@ public final class BlockUtils
 			case STRIPPED_JUNGLE_LOG:
 			case STRIPPED_OAK_LOG:
 			case STRIPPED_SPRUCE_LOG:
+			case CRIMSON_STEM:
+			case WARPED_STEM:
+			case STRIPPED_CRIMSON_STEM:
+			case STRIPPED_WARPED_STEM:
+			case CRIMSON_HYPHAE:
+			case WARPED_HYPHAE:
+			case STRIPPED_CRIMSON_HYPHAE:
+			case STRIPPED_WARPED_HYPHAE:
 				return true;
 			default: return false;
 		}
@@ -482,6 +600,7 @@ public final class BlockUtils
 			case LAPIS_ORE:
 			case NETHER_QUARTZ_ORE:
 			case REDSTONE_ORE:
+			case NETHER_GOLD_ORE:
 				return true;
 			default: return false;
 		}
@@ -525,6 +644,12 @@ public final class BlockUtils
 					break;
 				case LAPIS_ORE:
 					baseDrop = 6 + ThreadLocalRandom.current().nextInt(3);
+					quantity = baseDrop + bonus;
+					break;
+				case NETHER_GOLD_ORE:
+					baseDrop = 4 + ThreadLocalRandom.current().nextInt(3);
+					quantity = baseDrop + bonus;
+					break;
 				default:
 					quantity = baseDrop * (bonus + 1);
 			}
@@ -552,6 +677,7 @@ public final class BlockUtils
 		expRandMap.put(Material.NETHER_QUARTZ_ORE, new Bounds(2, 5));
 		expRandMap.put(Material.EMERALD_ORE, new Bounds(3, 7));
 		expRandMap.put(Material.SPAWNER, new Bounds(15, 43));
+		expRandMap.put(Material.NETHER_GOLD_ORE, new Bounds(2, 5));
 	}
 
 	public static int getExpDrop(Block block)

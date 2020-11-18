@@ -26,6 +26,12 @@ public final class Lang
 		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE;
 	}
 
+	public static final class NETHERITE
+	{
+		private NETHERITE() {}
+		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE;
+	}
+
 	private Lang() {}
 
 	public static void loadConfigValues(FileConfiguration c)
@@ -41,10 +47,14 @@ public final class Lang
 		GOLD.HAMMER = s("gold.hammer");
 		GOLD.EXCAVATOR = s("gold.excavator");
 		GOLD.LUMBERAXE = s("gold.lumberaxe");
+		NETHERITE.HAMMER = s("netherite.hammer");
+		NETHERITE.EXCAVATOR = s("netherite.excavator");
+		NETHERITE.LUMBERAXE = s("netherite.lumberaxe");
 
 		DIAMOND.HAMMER_3X5 = DIAMOND.HAMMER;
 		IRON.HAMMER_3X5 = IRON.HAMMER;
 		GOLD.HAMMER_3X5 = GOLD.HAMMER;
+		NETHERITE.HAMMER_3X5 = NETHERITE.HAMMER;
 	}
 
 	private static String s(final String path)

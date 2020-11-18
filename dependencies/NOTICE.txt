@@ -1,0 +1,6 @@
+Put your plugin dependencies here (except for bukkit or spigot).
+
+You need:
+    Factions.jar
+    MassiveCore.jar
+    Towny.jar (rename this without version suffix)

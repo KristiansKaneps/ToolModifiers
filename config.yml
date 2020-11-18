@@ -39,3 +39,7 @@ display:
       hammer: '§r§6Golden Hammer'
       excavator: '§r§6Golden Excavator'
       lumberaxe: '§r§6Golden Lumberaxe'
+    netherite:
+      hammer: '§r§6Netherite Hammer'
+      excavator: '§r§6Netherite Excavator'
+      lumberaxe: '§r§6Netherite Lumberaxe'
