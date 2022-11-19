@@ -1,0 +1,42 @@
+# File generated using gradle-bukkit (https://github.com/eth-p/gradle-bukkit)
+api-version: '1.19'
+author: k4neps
+permissions:
+  toolmodifiers.command: {default: op}
+  toolmodifiers.command.give.hammer: {default: op}
+  toolmodifiers.hammer.use: {default: 'true'}
+  toolmodifiers.lumberaxe.craft: {default: 'true'}
+  toolmodifiers.command.*:
+    default: op
+    children: {toolmodifiers.command.give.*: true}
+  toolmodifiers.lumberaxe.*:
+    default: op
+    children: {toolmodifiers.lumberaxe.craft: true, toolmodifiers.lumberaxe.use: true,
+      toolmodifiers.lumberaxe.tree: true}
+  toolmodifiers.command.give.lumberaxe: {default: op}
+  toolmodifiers.excavator.use: {default: 'true'}
+  toolmodifiers.*:
+    default: op
+    children: {toolmodifiers.command: true, toolmodifiers.command.*: true, toolmodifiers.excavator.*: true,
+      toolmodifiers.hammer.*: true, toolmodifiers.lumberaxe.*: true}
+  toolmodifiers.command.give.excavator: {default: op}
+  toolmodifiers.lumberaxe.use: {default: 'true'}
+  toolmodifiers.hammer.craft: {default: 'true'}
+  toolmodifiers.excavator.*:
+    default: op
+    children: {toolmodifiers.excavator.use: true, toolmodifiers.excavator.craft: true}
+  toolmodifiers.hammer.*:
+    default: op
+    children: {toolmodifiers.hammer.use: true, toolmodifiers.hammer.craft: true}
+  toolmodifiers.lumberaxe.tree: {default: 'true'}
+  toolmodifiers.excavator.craft: {default: 'true'}
+name: ToolModifiers
+description: Adds new modified tools to the game.
+main: k4neps.toolmodifiers.ToolModifiers
+softdepend: [Towny, Factions]
+version: 1.3.0
+commands:
+  toolmodifiers:
+    aliases: [tm]
+    description: Base command for ToolModifiers plugin.
+    permission: toolmodifiers.command

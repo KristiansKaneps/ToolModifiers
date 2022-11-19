@@ -9,6 +9,7 @@ import k4neps.toolmodifiers.crafting.hammer.HammerRecipe;
 import k4neps.toolmodifiers.crafting.lumberaxe.LumberaxeRecipe;
 import k4neps.toolmodifiers.utils.Area;
 import k4neps.toolmodifiers.utils.BlockUtils;
+import k4neps.toolmodifiers.utils.ToolUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -98,7 +99,7 @@ public class Events implements Listener
 			case NETHERITE_AXE:
 				clickedItem.setType(Material.NETHERITE_AXE);
 				if (ChatColor.stripColor(displayName).trim()
-							  .equals(ChatColor.stripColor(Lang.DIAMOND.LUMBERAXE).trim()))
+							 .equals(ChatColor.stripColor(Lang.DIAMOND.LUMBERAXE).trim()))
 					displayName = Lang.NETHERITE.LUMBERAXE;
 				break;
 			case NETHERITE_PICKAXE:
@@ -120,7 +121,7 @@ public class Events implements Listener
 			case NETHERITE_SHOVEL:
 				clickedItem.setType(Material.NETHERITE_SHOVEL);
 				if (ChatColor.stripColor(displayName).trim()
-							  .equals(ChatColor.stripColor(Lang.DIAMOND.EXCAVATOR).trim()))
+							 .equals(ChatColor.stripColor(Lang.DIAMOND.EXCAVATOR).trim()))
 					displayName = Lang.NETHERITE.EXCAVATOR;
 				break;
 			default:
@@ -144,10 +145,12 @@ public class Events implements Listener
 		ItemStack tool = p.getInventory().getItemInMainHand();
 
 		if (tool.getType() == Material.AIR) return;
-		if (!BlockUtils.isPickaxe(tool) && !BlockUtils.isShovel(tool) && !BlockUtils.isAxe(tool)) return;
-		if (BlockUtils.isPickaxe(tool) && !PermCheck.canUseHammer(p)) return;
-		if (BlockUtils.isShovel(tool) && !PermCheck.canUseExcavator(p)) return;
-		if (BlockUtils.isAxe(tool) && !PermCheck.canUseLumberaxe(p)) return;
+		if (
+				(!ToolUtils.isPickaxe(tool) && !ToolUtils.isShovel(tool) && !ToolUtils.isAxe(tool)) ||
+				(ToolUtils.isPickaxe(tool) && !PermCheck.canUseHammer(p)) ||
+				(ToolUtils.isShovel(tool) && !PermCheck.canUseExcavator(p)) ||
+				(ToolUtils.isAxe(tool) && !PermCheck.canUseLumberaxe(p))
+		) return;
 
 		ItemMeta meta = tool.getItemMeta();
 
@@ -161,9 +164,7 @@ public class Events implements Listener
 		Location loc = block.getLocation();
 		World world = loc.getWorld();
 
-		if (world == null) return;
-
-		if (block.getType() == Material.AIR || !BlockUtils.canMineBlock(block, tool)) return;
+		if ((world == null) || (block.getType() == Material.AIR || !ToolUtils.canMineBlock(block, tool))) return;
 
 		if (PermCheck.canUseLumberaxeToCutTrees(p) && lore.contains(LumberaxeRecipe.LUMBERAXE_MODIFIER_STRING) && isTree(
 				block))
@@ -206,7 +207,7 @@ public class Events implements Listener
 			for (Block b : area.getBlocksAround())
 			{
 				if (b == null || b.getType() == Material.AIR || Area.intersectsTerritory(b, p) || b.getType()
-																								   .getHardness() > srcHardness + hardnessThreshold || !BlockUtils
+																								   .getHardness() > srcHardness + hardnessThreshold || !ToolUtils
 						.canMineBlock(b, tool))
 					continue;
 

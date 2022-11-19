@@ -4,10 +4,10 @@ plugins {
 	id 'dev.ethp.bukkit' version '0.2.5'
 }
 
-version = '1.2.4'
-def spigotVersion = '1.16.2'
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+version = '1.3.0'
+def spigotVersion = '1.19.2'
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 bukkit {
 	name 'ToolModifiers'
@@ -124,6 +124,8 @@ repositories {
 		url 'https://repo.codemc.org/repository/maven-public/'
 		name 'codemc'
 	}
+	mavenCentral()
+	mavenLocal()
 }
 
 configurations {
@@ -132,6 +134,7 @@ configurations {
 
 dependencies {
 	spigotApi()
+	implementation group: 'org.spigotmc', name: 'spigot', version: "$spigotVersion-R0.1-SNAPSHOT"
 
 	// Useful for rewrite!!!
 	//implementation 'de.tr7zw:nbt-data-api:2.6.0'
@@ -139,9 +142,9 @@ dependencies {
 	//shadow 'de.tr7zw:nbt-data-api:2.6.0'
 	//shadow 'de.tr7zw:nbt-injector:2.6.0'
 
-	implementation name: 'Factions'
-	implementation name: 'MassiveCore'
-	implementation name: 'Towny'
+	implementation group: 'com.massivecraft.factions', name: 'Factions', version: '3.3.0'
+	implementation group: 'com.massivecraft.massivecore', name: 'MassiveCore', version: '3.3.0'
+	implementation group: 'com.palmergames.bukkit.towny', name: 'Towny', version: '0.96.6.1'
 }
 
 jar {

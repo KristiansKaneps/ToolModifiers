@@ -19,7 +19,7 @@ lumberaxe:
 hook:
   factions:
     # Will allow player to use modified tools in this faction's claimed territory
-    # regardless of whether or not he is a member of it.  Case-insensitive.
+    # regardless of whether he is a member of it.  Case-insensitive.
     default_faction_name: "Wilderness"
   towny:
     # Is wilderness block break protected by Towny?

@@ -13,7 +13,6 @@ out/
 hs_err_pid*
 *mstore/
 /minecraft-server/
-/dependencies/*.jar
 /build/
 *.properties
 !/dependencies/NOTICE.txt
