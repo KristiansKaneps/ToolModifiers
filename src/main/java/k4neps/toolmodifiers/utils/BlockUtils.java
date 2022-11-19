@@ -586,7 +586,7 @@ public final class BlockUtils
 	{
 		final Material material = block.getType();
 		net.minecraft.world.level.material.Material nmsMaterial = getNmsBlockMaterial(material);
-		return pickaxeMaterials.contains(nmsMaterial) || pickaxeBlocks.contains(material);
+		return material != Material.BEDROCK && (pickaxeMaterials.contains(nmsMaterial) || pickaxeBlocks.contains(material));
 	}
 
 	public static boolean isShovelBlock(Block block)
