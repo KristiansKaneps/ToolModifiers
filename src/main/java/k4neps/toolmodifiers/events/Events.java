@@ -213,8 +213,8 @@ public class Events implements Listener
 
 				if (p.getGameMode() == GameMode.SURVIVAL)
 				{
-					Collection<ItemStack> drops = BlockUtils.getDrops(b, tool);
-					int exp = BlockUtils.getExpDrop(b);
+					Collection<ItemStack> drops = BlockUtils.getDrops(p, b, tool);
+					int exp = BlockUtils.getExpDrop(b, tool);
 
 					b.setType(Material.AIR);
 
@@ -226,11 +226,11 @@ public class Events implements Listener
 					if (drops.size() > 0)
 						for (ItemStack drop : drops)
 							world.dropItemNaturally(loc, drop);
-
-					continue;
 				}
-
-				b.setType(Material.AIR);
+				else if (p.getGameMode() == GameMode.CREATIVE)
+				{
+					b.setType(Material.AIR);
+				}
 			}
 		}
 	}

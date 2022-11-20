@@ -1,14 +1,18 @@
 package k4neps.toolmodifiers.utils;
 
+import net.minecraft.core.BlockPosition;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R1.block.CraftBlock;
+import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftItemStack;
 import org.bukkit.craftbukkit.v1_19_R1.util.CraftMagicNumbers;
-import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Kristians on 7/28/2017.
@@ -543,9 +547,24 @@ public final class BlockUtils
 		return getNmsBlock(material).m();
 	}
 
+	private static net.minecraft.world.level.block.state.IBlockData getNmsBlockData(Block block)
+	{
+		return ((CraftBlock) block).getNMS();
+	}
+
 	private static net.minecraft.world.level.material.Material getNmsBlockMaterial(Material material)
 	{
 		return getNmsBlockData(material).d();
+	}
+
+	private static net.minecraft.server.level.WorldServer getNmsWorldServer(World world)
+	{
+		return ((CraftWorld) world).getHandle();
+	}
+
+	private static net.minecraft.world.item.ItemStack getNmsItemStack(ItemStack itemStack)
+	{
+		return CraftItemStack.asNMSCopy(itemStack);
 	}
 
 	private static final Set<net.minecraft.world.level.material.Material> pickaxeMaterials =
@@ -618,108 +637,18 @@ public final class BlockUtils
 		return fortuneOres.contains(block.getType());
 	}
 
-	public static Collection<ItemStack> getDrops(Block block, ItemStack tool)
+	public static Collection<ItemStack> getDrops(Player player, Block block, ItemStack tool)
 	{
-		Map<Enchantment, Integer> enchantments = tool.getEnchantments();
-
-		boolean silkTouchFound = enchantments.containsKey(Enchantment.SILK_TOUCH);
-		boolean fortuneFound = enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS);
-
-		Collection<ItemStack> toReturn;
-
-		if (silkTouchFound)
-		{
-			toReturn = new HashSet<>();
-			/*if(block.getState() instanceof InventoryHolder)
-			{
-				InventoryHolder invHolder = (InventoryHolder) block.getState();
-				ItemStack[] contents = invHolder.getInventory().getContents();
-				for(ItemStack stack : contents)
-					if(stack != null && stack.getType() != Material.AIR) toReturn.add(stack);
-			}*/
-			toReturn.add(new ItemStack(block.getType(), 1));
-		}
-		else if (fortuneFound && isFortuneOre(block))
-		{
-			int baseDrop = 1;
-			int bonus = Math.round(ThreadLocalRandom.current()
-													.nextFloat() * (enchantments.get(Enchantment.LOOT_BONUS_BLOCKS) + 2) - 0.1f) - 1;
-			if (bonus < 0) bonus = 0;
-
-			ItemStack toDrop = block.getDrops().toArray(new ItemStack[0])[0];
-			int quantity;
-
-			switch (block.getType())
-			{
-				case REDSTONE_ORE:
-					baseDrop = 4 + ThreadLocalRandom.current().nextInt(2);
-					quantity = baseDrop + bonus;
-					break;
-				case LAPIS_ORE:
-					baseDrop = 6 + ThreadLocalRandom.current().nextInt(3);
-					quantity = baseDrop + bonus;
-					break;
-				case NETHER_GOLD_ORE:
-					baseDrop = 4 + ThreadLocalRandom.current().nextInt(3);
-					quantity = baseDrop + bonus;
-					break;
-				default:
-					quantity = baseDrop * (bonus + 1);
-			}
-
-			toDrop.setAmount(quantity);
-
-			toReturn = new HashSet<>();
-			toReturn.add(toDrop);
-		}
-		else
-		{
-			toReturn = block.getDrops(tool);
-		}
-
-		return toReturn;
+		return Collections.unmodifiableCollection(block.getDrops(tool, player));
 	}
 
-	private static final Map<Material, Bounds> expRandMap = new HashMap<>();
-
-	static
+	public static int getExpDrop(Block block, ItemStack tool)
 	{
-		expRandMap.put(Material.REDSTONE_ORE, new Bounds(1, 5));
-		expRandMap.put(Material.COAL_ORE, new Bounds(0, 2));
-		expRandMap.put(Material.DIAMOND_ORE, new Bounds(3, 7));
-		expRandMap.put(Material.LAPIS_ORE, new Bounds(2, 5));
-		expRandMap.put(Material.NETHER_QUARTZ_ORE, new Bounds(2, 5));
-		expRandMap.put(Material.EMERALD_ORE, new Bounds(3, 7));
-		expRandMap.put(Material.SPAWNER, new Bounds(15, 43));
-		expRandMap.put(Material.NETHER_GOLD_ORE, new Bounds(2, 5));
-		expRandMap.put(Material.DEEPSLATE_COAL_ORE, new Bounds(0, 2));
-		expRandMap.put(Material.DEEPSLATE_DIAMOND_ORE, new Bounds(3, 7));
-		expRandMap.put(Material.DEEPSLATE_EMERALD_ORE, new Bounds(3, 7));
-		expRandMap.put(Material.DEEPSLATE_LAPIS_ORE, new Bounds(2, 5));
-		expRandMap.put(Material.DEEPSLATE_REDSTONE_ORE, new Bounds(1, 5));
-	}
-
-	public static int getExpDrop(Block block)
-	{
-		Material type = block.getType();
-		if (!expRandMap.containsKey(type)) return 0;
-		return expRandMap.get(type).rand();
-	}
-
-	private static class Bounds
-	{
-		public final int max;
-		public final int min;
-
-		private Bounds(int min /* including */, int max /* including */)
-		{
-			this.min = min;
-			this.max = max;
-		}
-
-		public int rand()
-		{
-			return ThreadLocalRandom.current().nextInt(min, max + 1);
-		}
+		var nmsBlock = getNmsBlock(block.getType());
+		var blockData = getNmsBlockData(block);
+		var worldServer = getNmsWorldServer(block.getWorld());
+		var blockPos = new BlockPosition(block.getX(), block.getY(), block.getZ());
+		var nmsTool = getNmsItemStack(tool);
+		return nmsBlock.getExpDrop(blockData, worldServer, blockPos, nmsTool, true);
 	}
 }
