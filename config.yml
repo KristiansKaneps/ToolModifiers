@@ -16,6 +16,9 @@ lumberaxe:
   # Logs doesn't stay stuck on leaves.
   drop_tree_logs_at_source: true
 
+cleaver:
+  mobs_can_use_cleavers: true
+
 hook:
   factions:
     # Will allow player to use modified tools in this faction's claimed territory
@@ -31,15 +34,19 @@ display:
       hammer: '§r§6Diamond Hammer'
       excavator: '§r§6Diamond Excavator'
       lumberaxe: '§r§6Diamond Lumberaxe'
+      cleaver: '§r§6Diamond Cleaver'
     iron:
       hammer: '§r§6Iron Hammer'
       excavator: '§r§6Iron Excavator'
       lumberaxe: '§r§6Iron Lumberaxe'
+      cleaver: '§r§6Iron Cleaver'
     gold:
       hammer: '§r§6Golden Hammer'
       excavator: '§r§6Golden Excavator'
       lumberaxe: '§r§6Golden Lumberaxe'
+      cleaver: '§r§6Golden Cleaver'
     netherite:
       hammer: '§r§6Netherite Hammer'
       excavator: '§r§6Netherite Excavator'
       lumberaxe: '§r§6Netherite Lumberaxe'
+      cleaver: '§r§6Netherite Cleaver'

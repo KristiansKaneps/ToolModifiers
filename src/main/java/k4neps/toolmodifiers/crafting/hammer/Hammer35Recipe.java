@@ -19,6 +19,7 @@ public class Hammer35Recipe extends ToolRecipe
 	public static final ItemStack result_diamond = new ItemStack(Material.DIAMOND_PICKAXE);
 	public static final ItemStack result_iron = new ItemStack(Material.IRON_PICKAXE);
 	public static final ItemStack result_gold = new ItemStack(Material.GOLDEN_PICKAXE);
+	public static final ItemStack result_netherite = new ItemStack(Material.NETHERITE_PICKAXE);
 
 	static
 	{
@@ -38,6 +39,11 @@ public class Hammer35Recipe extends ToolRecipe
 		meta.setDisplayName(Lang.GOLD.HAMMER_3X5);
 		meta.setLore(new ArrayList<String>(){{add(HAMMER_MODIFIER_STRING);}});
 		result_gold.setItemMeta(meta);
+
+		meta = result_netherite.getItemMeta();
+		meta.setDisplayName(Lang.NETHERITE.HAMMER_3X5);
+		meta.setLore(new ArrayList<String>(){{add(HAMMER_MODIFIER_STRING);}});
+		result_netherite.setItemMeta(meta);
 	}
 
 	public Hammer35Recipe(String key, ItemStack result, RecipeShape shape, Ingredient... ingredients)

@@ -1,8 +1,8 @@
 package k4neps.toolmodifiers.events;
 
-import k4neps.toolmodifiers.Lang;
 import k4neps.toolmodifiers.PermCheck;
 import k4neps.toolmodifiers.ToolModifiers;
+import k4neps.toolmodifiers.crafting.cleaver.CleaverRecipe;
 import k4neps.toolmodifiers.crafting.excavator.ExcavatorRecipe;
 import k4neps.toolmodifiers.crafting.hammer.Hammer35Recipe;
 import k4neps.toolmodifiers.crafting.hammer.HammerRecipe;
@@ -20,8 +20,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -35,10 +33,8 @@ import static org.bukkit.block.BlockFace.*;
  *
  * @author Kristians
  */
-public class Events implements Listener
+public class BlockBreakEvents implements Listener
 {
-	private final ToolModifiers tm;
-
 	private final int maxSearch = 72;
 	private final Function<Block, Boolean> checkIfLeavesF = b -> POSSIBLE_LEAF_TYPES.contains(b.getType());
 
@@ -46,91 +42,11 @@ public class Events implements Listener
 	private final float hardnessThreshold;
 	private final boolean lumberAxeDropsAtSrc;
 
-	public Events(ToolModifiers tm)
+	public BlockBreakEvents(ToolModifiers tm)
 	{
-		this.tm = tm;
-
 		hardnessThreshold = (float) tm.getConfig().getDouble("hardness_threshold");
 		lumberAxeRange = tm.getConfig().getInt("lumberaxe.tree_branch_radius");
 		lumberAxeDropsAtSrc = tm.getConfig().getBoolean("lumberaxe.drop_tree_logs_at_source");
-	}
-
-	private static final List<Material> validItems = Arrays.asList(
-			Material.NETHERITE_AXE,
-			Material.NETHERITE_PICKAXE,
-			Material.NETHERITE_SHOVEL
-	);
-
-	@EventHandler(priority = EventPriority.NORMAL)
-	public void onNetheriteUpgrade(InventoryClickEvent e)
-	{
-		if (e.getInventory().getType() != InventoryType.SMITHING
-			|| e.getSlotType() != InventoryType.SlotType.RESULT
-			|| e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR
-			|| e.isCancelled())
-			return;
-
-		ItemStack clickedItem = e.getCurrentItem();
-
-		ItemMeta meta = clickedItem.getItemMeta();
-
-		if (!meta.hasDisplayName()) // modified tools are renamed
-			return;
-
-		boolean modify = false;
-		for (String line : meta.getLore())
-			if (
-					HammerRecipe.HAMMER_MODIFIER_STRING.equals(line)
-					|| Hammer35Recipe.HAMMER_MODIFIER_STRING.equals(line)
-					|| ExcavatorRecipe.EXCAVATOR_MODIFIER_STRING.equals(line)
-					|| LumberaxeRecipe.LUMBERAXE_MODIFIER_STRING.equals(line)
-			)
-			{
-				modify = true;
-				break;
-			}
-
-		if (!modify) return;
-
-		String displayName = meta.getDisplayName();
-
-		switch (clickedItem.getType())
-		{
-			case NETHERITE_AXE:
-				clickedItem.setType(Material.NETHERITE_AXE);
-				if (ChatColor.stripColor(displayName).trim()
-							 .equals(ChatColor.stripColor(Lang.DIAMOND.LUMBERAXE).trim()))
-					displayName = Lang.NETHERITE.LUMBERAXE;
-				break;
-			case NETHERITE_PICKAXE:
-				clickedItem.setType(Material.NETHERITE_PICKAXE);
-				if (meta.hasDisplayName())
-				{
-					if (
-							meta.getLore().contains(HammerRecipe.HAMMER_MODIFIER_STRING)
-							&& ChatColor.stripColor(displayName).trim()
-										.equals(ChatColor.stripColor(Lang.DIAMOND.HAMMER).trim()))
-						displayName = Lang.NETHERITE.HAMMER;
-					else if (
-							meta.getLore().contains(Hammer35Recipe.HAMMER_MODIFIER_STRING)
-							&& ChatColor.stripColor(displayName).trim()
-										.equals(ChatColor.stripColor(Lang.DIAMOND.HAMMER_3X5).trim()))
-						displayName = Lang.NETHERITE.HAMMER_3X5;
-				}
-				break;
-			case NETHERITE_SHOVEL:
-				clickedItem.setType(Material.NETHERITE_SHOVEL);
-				if (ChatColor.stripColor(displayName).trim()
-							 .equals(ChatColor.stripColor(Lang.DIAMOND.EXCAVATOR).trim()))
-					displayName = Lang.NETHERITE.EXCAVATOR;
-				break;
-			default:
-				return;
-		}
-
-		meta.setDisplayName(displayName);
-
-		clickedItem.setItemMeta(meta);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
@@ -149,7 +65,8 @@ public class Events implements Listener
 				(!ToolUtils.isPickaxe(tool) && !ToolUtils.isShovel(tool) && !ToolUtils.isAxe(tool)) ||
 				(ToolUtils.isPickaxe(tool) && !PermCheck.canUseHammer(p)) ||
 				(ToolUtils.isShovel(tool) && !PermCheck.canUseExcavator(p)) ||
-				(ToolUtils.isAxe(tool) && !PermCheck.canUseLumberaxe(p))
+				(ToolUtils.isAxe(tool) && !PermCheck.canUseLumberaxe(p)) ||
+				(ToolUtils.isSword(tool) && !PermCheck.canUseCleaver(p))
 		) return;
 
 		ItemMeta meta = tool.getItemMeta();
@@ -195,7 +112,7 @@ public class Events implements Listener
 		if (lore.contains(Hammer35Recipe.HAMMER_MODIFIER_STRING))
 			modifiedTool = 2;
 		else if (lore.contains(HammerRecipe.HAMMER_MODIFIER_STRING) || lore.contains(ExcavatorRecipe.EXCAVATOR_MODIFIER_STRING) || lore
-				.contains(LumberaxeRecipe.LUMBERAXE_MODIFIER_STRING))
+				.contains(LumberaxeRecipe.LUMBERAXE_MODIFIER_STRING) || lore.contains(CleaverRecipe.CLEAVER_MODIFIER_STRING))
 			modifiedTool = 1;
 
 		if (modifiedTool > 0)

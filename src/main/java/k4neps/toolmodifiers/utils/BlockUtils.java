@@ -485,6 +485,10 @@ public final class BlockUtils
 			Material.STRIPPED_WARPED_HYPHAE
 	));
 
+	public static final Set<Material> swordBlocks = new HashSet<>(Arrays.asList(
+			Material.COBWEB
+	));
+
 	public static final Set<Material> leaves = new HashSet<>(Arrays.asList(
 			Material.ACACIA_LEAVES,
 			Material.BIRCH_LEAVES,
@@ -620,6 +624,12 @@ public final class BlockUtils
 		final Material material = block.getType();
 		net.minecraft.world.level.material.Material nmsMaterial = getNmsBlockMaterial(material);
 		return axeMaterials.contains(nmsMaterial) || axeBlocks.contains(material);
+	}
+
+	public static boolean isSwordBlock(Block block)
+	{
+		final Material material = block.getType();
+		return swordBlocks.contains(material);
 	}
 
 	public static boolean isLeaves(Block block)

@@ -13,7 +13,8 @@ public final class ToolUtils
 				block.getType().isBlock() && (
 						(isPickaxe(tool) && BlockUtils.isPickaxeBlock(block)) ||
 						(isShovel(tool) && BlockUtils.isShovelBlock(block)) ||
-						(isAxe(tool) && BlockUtils.isAxeBlock(block))
+						(isAxe(tool) && BlockUtils.isAxeBlock(block)) ||
+						(isSword(tool) && BlockUtils.isSwordBlock(block))
 				)
 		);
 	}
@@ -60,6 +61,22 @@ public final class ToolUtils
 			case IRON_AXE:
 			case STONE_AXE:
 			case WOODEN_AXE:
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	public static boolean isSword(ItemStack item)
+	{
+		switch (item.getType())
+		{
+			case DIAMOND_SWORD:
+			case NETHERITE_SWORD:
+			case GOLDEN_SWORD:
+			case IRON_SWORD:
+			case STONE_SWORD:
+			case WOODEN_SWORD:
 				return true;
 			default:
 				return false;

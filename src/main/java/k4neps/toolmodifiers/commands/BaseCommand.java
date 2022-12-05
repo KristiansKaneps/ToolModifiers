@@ -110,6 +110,12 @@ public class BaseCommand implements CommandExecutor
 					success(p, "You gave yourself a gold hammer.");
 					return true;
 				}
+				if(item.contains("netherite"))
+				{
+					inv.addItem(item.contains("3x5") ? Hammer35Recipe.result_netherite : HammerRecipe.result_netherite);
+					success(p, "You gave yourself a netherite hammer.");
+					return true;
+				}
 
 				inv.addItem(item.contains("3x5") ? Hammer35Recipe.result_diamond : HammerRecipe.result_diamond);
 				success(p, "You gave yourself a diamond hammer.");
@@ -133,6 +139,12 @@ public class BaseCommand implements CommandExecutor
 				{
 					inv.addItem(ExcavatorRecipe.result_gold);
 					success(p, "You gave yourself a gold excavator.");
+					return true;
+				}
+				if(item.contains("netherite"))
+				{
+					inv.addItem(ExcavatorRecipe.result_netherite);
+					success(p, "You gave yourself a netherite excavator.");
 					return true;
 				}
 
@@ -160,9 +172,46 @@ public class BaseCommand implements CommandExecutor
 					success(p, "You gave yourself a gold lumberaxe.");
 					return true;
 				}
+				if(item.contains("netherite"))
+				{
+					inv.addItem(LumberaxeRecipe.result_netherite);
+					success(p, "You gave yourself a netherite lumberaxe.");
+					return true;
+				}
 
 				inv.addItem(LumberaxeRecipe.result_diamond);
 				success(p, "You gave yourself a diamond lumberaxe.");
+				return true;
+			}
+			if(item.contains("cleaver"))
+			{
+				if(!PermCheck.canGiveCleaverToTheirselves(p))
+				{
+					error(p, "You don't have enough permissions to give yourself a cleaver.");
+					return false;
+				}
+
+				if(item.contains("iron"))
+				{
+					inv.addItem(LumberaxeRecipe.result_iron);
+					success(p, "You gave yourself an iron cleaver.");
+					return true;
+				}
+				if(item.contains("gold"))
+				{
+					inv.addItem(LumberaxeRecipe.result_gold);
+					success(p, "You gave yourself a gold cleaver.");
+					return true;
+				}
+				if(item.contains("netherite"))
+				{
+					inv.addItem(LumberaxeRecipe.result_netherite);
+					success(p, "You gave yourself a netherite cleaver.");
+					return true;
+				}
+
+				inv.addItem(LumberaxeRecipe.result_diamond);
+				success(p, "You gave yourself a diamond cleaver.");
 				return true;
 			}
 
@@ -184,9 +233,10 @@ public class BaseCommand implements CommandExecutor
 	private static void listItems(Player p)
 	{
 		p.sendMessage(ChatColor.AQUA + "Item List: ");
-		p.sendMessage(ChatColor.DARK_AQUA + " diamondhammer[3x5], ironhammer[3x5], goldhammer[3x5]");
-		p.sendMessage(ChatColor.DARK_AQUA + " diamondexcavator, ironexcavator, goldexcavator");
-		p.sendMessage(ChatColor.DARK_AQUA + " diamondlumberaxe, ironlumberaxe, goldlumberaxe");
+		p.sendMessage(ChatColor.DARK_AQUA + " diamondhammer[3x5], ironhammer[3x5], goldhammer[3x5], netheritehammer[3x5]");
+		p.sendMessage(ChatColor.DARK_AQUA + " diamondexcavator, ironexcavator, goldexcavator, netheriteexcavator");
+		p.sendMessage(ChatColor.DARK_AQUA + " diamondlumberaxe, ironlumberaxe, goldlumberaxe, netheritelumberaxe");
+		p.sendMessage(ChatColor.DARK_AQUA + " diamondcleaver, ironcleaver, goldcleaver, netheritecleaver");
 	}
 
 	private static void error(Player p, String msg)

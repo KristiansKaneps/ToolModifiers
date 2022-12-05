@@ -2,41 +2,51 @@
 api-version: '1.19'
 author: k4neps
 permissions:
-  toolmodifiers.command: {default: op}
-  toolmodifiers.command.give.hammer: {default: op}
-  toolmodifiers.hammer.use: {default: 'true'}
-  toolmodifiers.lumberaxe.craft: {default: 'true'}
+  toolmodifiers.command: { default: op }
+  toolmodifiers.command.give.hammer: { default: op }
+  toolmodifiers.hammer.use: { default: 'true' }
+  toolmodifiers.lumberaxe.craft: { default: 'true' }
   toolmodifiers.command.*:
     default: op
-    children: {toolmodifiers.command.give.*: true}
+    children: { toolmodifiers.command.give.*: true }
+  toolmodifiers.command.give.*:
+    default: op
+    children: { toolmodifiers.command.give.hammer: true, toolmodifiers.command.give.lumberaxe: true, toolmodifiers.command.give.excavator: true, toolmodifiers.command.give.cleaver: true }
   toolmodifiers.lumberaxe.*:
     default: op
-    children: {toolmodifiers.lumberaxe.craft: true, toolmodifiers.lumberaxe.use: true,
-      toolmodifiers.lumberaxe.tree: true}
-  toolmodifiers.command.give.lumberaxe: {default: op}
-  toolmodifiers.excavator.use: {default: 'true'}
+    children: { toolmodifiers.lumberaxe.craft: true, toolmodifiers.lumberaxe.use: true,
+                toolmodifiers.lumberaxe.tree: true }
+  toolmodifiers.command.give.lumberaxe: { default: op }
+  toolmodifiers.excavator.use: { default: 'true' }
   toolmodifiers.*:
     default: op
-    children: {toolmodifiers.command: true, toolmodifiers.command.*: true, toolmodifiers.excavator.*: true,
-      toolmodifiers.hammer.*: true, toolmodifiers.lumberaxe.*: true}
-  toolmodifiers.command.give.excavator: {default: op}
-  toolmodifiers.lumberaxe.use: {default: 'true'}
-  toolmodifiers.hammer.craft: {default: 'true'}
+    children: { toolmodifiers.command: true, toolmodifiers.command.*: true, toolmodifiers.excavator.*: true,
+                toolmodifiers.hammer.*: true, toolmodifiers.lumberaxe.*: true }
+  toolmodifiers.command.give.excavator: { default: op }
+  toolmodifiers.lumberaxe.use: { default: 'true' }
+  toolmodifiers.hammer.craft: { default: 'true' }
   toolmodifiers.excavator.*:
     default: op
-    children: {toolmodifiers.excavator.use: true, toolmodifiers.excavator.craft: true}
+    children: { toolmodifiers.excavator.use: true, toolmodifiers.excavator.craft: true }
   toolmodifiers.hammer.*:
     default: op
-    children: {toolmodifiers.hammer.use: true, toolmodifiers.hammer.craft: true}
-  toolmodifiers.lumberaxe.tree: {default: 'true'}
-  toolmodifiers.excavator.craft: {default: 'true'}
+    children: { toolmodifiers.hammer.use: true, toolmodifiers.hammer.craft: true }
+  toolmodifiers.lumberaxe.tree: { default: 'true' }
+  toolmodifiers.excavator.craft: { default: 'true' }
+  toolmodifiers.cleaver.*:
+    default: op
+    children: { toolmodifiers.cleaver.use: true, toolmodifiers.cleaver.craft: true }
+  toolmodifiers.command.give.cleaver: { default: op }
+  toolmodifiers.cleaver.use: { default: 'true' }
+  toolmodifiers.cleaver.craft: { default: 'true' }
+
 name: ToolModifiers
 description: Adds new modified tools to the game.
 main: k4neps.toolmodifiers.ToolModifiers
-softdepend: [Towny, Factions]
-version: 1.3.1
+softdepend: [ Towny, Factions ]
+version: 1.4.0
 commands:
   toolmodifiers:
-    aliases: [tm]
+    aliases: [ tm ]
     description: Base command for ToolModifiers plugin.
     permission: toolmodifiers.command

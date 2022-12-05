@@ -24,6 +24,7 @@ public class ExcavatorRecipe extends ToolRecipe
 	public static final ItemStack result_diamond = new ItemStack(Material.DIAMOND_SHOVEL);
 	public static final ItemStack result_iron = new ItemStack(Material.IRON_SHOVEL);
 	public static final ItemStack result_gold = new ItemStack(Material.GOLDEN_SHOVEL);
+	public static final ItemStack result_netherite = new ItemStack(Material.NETHERITE_SHOVEL);
 
 	static
 	{
@@ -43,6 +44,11 @@ public class ExcavatorRecipe extends ToolRecipe
 		meta.setDisplayName(Lang.GOLD.EXCAVATOR);
 		meta.setLore(new ArrayList<String>(){{add(EXCAVATOR_MODIFIER_STRING);}});
 		result_gold.setItemMeta(meta);
+
+		meta = result_netherite.getItemMeta();
+		meta.setDisplayName(Lang.NETHERITE.EXCAVATOR);
+		meta.setLore(new ArrayList<String>(){{add(EXCAVATOR_MODIFIER_STRING);}});
+		result_netherite.setItemMeta(meta);
 	}
 
 	public ExcavatorRecipe(String key, ItemStack result, RecipeShape shape, Ingredient... ingredients)

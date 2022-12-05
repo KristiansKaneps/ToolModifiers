@@ -25,6 +25,7 @@ public class LumberaxeRecipe extends ToolRecipe
 	public static final ItemStack result_diamond = new ItemStack(Material.DIAMOND_AXE);
 	public static final ItemStack result_iron = new ItemStack(Material.IRON_AXE);
 	public static final ItemStack result_gold = new ItemStack(Material.GOLDEN_AXE);
+	public static final ItemStack result_netherite = new ItemStack(Material.NETHERITE_AXE);
 
 	static
 	{
@@ -44,6 +45,11 @@ public class LumberaxeRecipe extends ToolRecipe
 		meta.setDisplayName(Lang.GOLD.LUMBERAXE);
 		meta.setLore(new ArrayList<String>(){{add(LUMBERAXE_MODIFIER_STRING);}});
 		result_gold.setItemMeta(meta);
+
+		meta = result_netherite.getItemMeta();
+		meta.setDisplayName(Lang.NETHERITE.LUMBERAXE);
+		meta.setLore(new ArrayList<String>(){{add(LUMBERAXE_MODIFIER_STRING);}});
+		result_netherite.setItemMeta(meta);
 	}
 
 	public LumberaxeRecipe(String key, ItemStack result, RecipeShape shape, Ingredient... ingredients)

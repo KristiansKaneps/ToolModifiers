@@ -1,12 +1,17 @@
 package k4neps.toolmodifiers;
 
 import k4neps.toolmodifiers.commands.BaseCommand;
+import k4neps.toolmodifiers.crafting.cleaver.DiamondCleaver;
+import k4neps.toolmodifiers.crafting.cleaver.GoldCleaver;
+import k4neps.toolmodifiers.crafting.cleaver.IronCleaver;
 import k4neps.toolmodifiers.crafting.excavator.DiamondExcavator;
 import k4neps.toolmodifiers.crafting.excavator.GoldExcavator;
 import k4neps.toolmodifiers.crafting.excavator.IronExcavator;
 import k4neps.toolmodifiers.crafting.hammer.*;
 import k4neps.toolmodifiers.crafting.lumberaxe.*;
-import k4neps.toolmodifiers.events.Events;
+import k4neps.toolmodifiers.events.AttackEvents;
+import k4neps.toolmodifiers.events.BlockBreakEvents;
+import k4neps.toolmodifiers.events.CraftingEvents;
 import k4neps.toolmodifiers.integration.FactionsHook;
 import k4neps.toolmodifiers.integration.TownyHook;
 import k4neps.toolmodifiers.utils.Area;
@@ -43,7 +48,9 @@ public class ToolModifiers extends JavaPlugin
 
 		loadConfig();
 
-		pm.registerEvents(new Events(this), this);
+		pm.registerEvents(new BlockBreakEvents(this), this);
+		pm.registerEvents(new AttackEvents(this), this);
+		pm.registerEvents(new CraftingEvents(this), this);
 
 		Objects.requireNonNull(this.getCommand("tm")).setExecutor(new BaseCommand());
 
@@ -64,6 +71,10 @@ public class ToolModifiers extends JavaPlugin
 		new GoldLumberaxeRight().add();
 		new IronLumberaxe().add();
 		new IronLumberaxeRight().add();
+
+		new DiamondCleaver().add();
+		new GoldCleaver().add();
+		new IronCleaver().add();
 
 		final Plugin[] plugins = pm.getPlugins();
 		boolean[] terr = {false, false};

@@ -6,7 +6,7 @@ public class RecipeShape
 
 	public RecipeShape()
 	{
-		shape = new String[]{"", "", ""};
+		this("", "", "");
 	}
 
 	public RecipeShape(String... shape)

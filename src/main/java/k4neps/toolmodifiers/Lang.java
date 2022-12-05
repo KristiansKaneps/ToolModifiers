@@ -11,25 +11,25 @@ public final class Lang
 	public static final class DIAMOND
 	{
 		private DIAMOND() {}
-		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE;
+		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE, CLEAVER;
 	}
 
 	public static final class IRON
 	{
 		private IRON() {}
-		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE;
+		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE, CLEAVER;
 	}
 
 	public static final class GOLD
 	{
 		private GOLD() {}
-		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE;
+		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE, CLEAVER;
 	}
 
 	public static final class NETHERITE
 	{
 		private NETHERITE() {}
-		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE;
+		public static String HAMMER, HAMMER_3X5, EXCAVATOR, LUMBERAXE, CLEAVER;
 	}
 
 	private Lang() {}
@@ -41,15 +41,19 @@ public final class Lang
 		DIAMOND.HAMMER = s("diamond.hammer");
 		DIAMOND.EXCAVATOR = s("diamond.excavator");
 		DIAMOND.LUMBERAXE = s("diamond.lumberaxe");
+		DIAMOND.CLEAVER = s("diamond.cleaver");
 		IRON.HAMMER = s("iron.hammer");
 		IRON.EXCAVATOR = s("iron.excavator");
 		IRON.LUMBERAXE = s("iron.lumberaxe");
+		IRON.CLEAVER = s("iron.cleaver");
 		GOLD.HAMMER = s("gold.hammer");
 		GOLD.EXCAVATOR = s("gold.excavator");
 		GOLD.LUMBERAXE = s("gold.lumberaxe");
+		GOLD.CLEAVER = s("gold.cleaver");
 		NETHERITE.HAMMER = s("netherite.hammer");
 		NETHERITE.EXCAVATOR = s("netherite.excavator");
 		NETHERITE.LUMBERAXE = s("netherite.lumberaxe");
+		NETHERITE.CLEAVER = s("netherite.cleaver");
 
 		DIAMOND.HAMMER_3X5 = DIAMOND.HAMMER;
 		IRON.HAMMER_3X5 = IRON.HAMMER;
