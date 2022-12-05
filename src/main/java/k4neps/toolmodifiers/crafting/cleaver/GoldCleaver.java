@@ -11,6 +11,6 @@ public class GoldCleaver extends CleaverRecipe
 {
 	public GoldCleaver()
 	{
-		super("gold_excavator", CleaverRecipe.result_gold, CLEAVER_SHAPE, INGREDIENTS.apply(Material.GOLD_BLOCK));
+		super("gold_cleaver", CleaverRecipe.result_gold, CLEAVER_SHAPE, INGREDIENTS.apply(Material.GOLD_BLOCK));
 	}
 }

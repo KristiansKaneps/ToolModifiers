@@ -24,6 +24,6 @@ public class RecipeShape
 
 	public boolean containsKey(char key)
 	{
-		return shape[0].contains(key + "") || shape[1].contains(key + "") || shape[3].contains(key + "");
+		return shape[0].contains(key + "") || shape[1].contains(key + "") || shape[2].contains(key + "");
 	}
 }

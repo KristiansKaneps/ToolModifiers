@@ -11,6 +11,6 @@ public class DiamondCleaver extends CleaverRecipe
 {
 	public DiamondCleaver()
 	{
-		super("diamond_excavator", CleaverRecipe.result_diamond, CLEAVER_SHAPE, INGREDIENTS.apply(Material.DIAMOND_BLOCK));
+		super("diamond_cleaver", CleaverRecipe.result_diamond, CLEAVER_SHAPE, INGREDIENTS.apply(Material.DIAMOND_BLOCK));
 	}
 }

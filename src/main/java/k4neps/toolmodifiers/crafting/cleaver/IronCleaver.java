@@ -11,6 +11,6 @@ public class IronCleaver extends CleaverRecipe
 {
 	public IronCleaver()
 	{
-		super("iron_excavator", CleaverRecipe.result_iron, CLEAVER_SHAPE, INGREDIENTS.apply(Material.IRON_BLOCK));
+		super("iron_cleaver", CleaverRecipe.result_iron, CLEAVER_SHAPE, INGREDIENTS.apply(Material.IRON_BLOCK));
 	}
 }
