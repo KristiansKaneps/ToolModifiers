@@ -1,6 +1,7 @@
 package k4neps.toolmodifiers.commands;
 
 import k4neps.toolmodifiers.PermCheck;
+import k4neps.toolmodifiers.crafting.cleaver.CleaverRecipe;
 import k4neps.toolmodifiers.crafting.excavator.ExcavatorRecipe;
 import k4neps.toolmodifiers.crafting.hammer.Hammer35Recipe;
 import k4neps.toolmodifiers.crafting.hammer.HammerRecipe;
@@ -193,24 +194,24 @@ public class BaseCommand implements CommandExecutor
 
 				if(item.contains("iron"))
 				{
-					inv.addItem(LumberaxeRecipe.result_iron);
+					inv.addItem(CleaverRecipe.result_iron);
 					success(p, "You gave yourself an iron cleaver.");
 					return true;
 				}
 				if(item.contains("gold"))
 				{
-					inv.addItem(LumberaxeRecipe.result_gold);
+					inv.addItem(CleaverRecipe.result_gold);
 					success(p, "You gave yourself a gold cleaver.");
 					return true;
 				}
 				if(item.contains("netherite"))
 				{
-					inv.addItem(LumberaxeRecipe.result_netherite);
+					inv.addItem(CleaverRecipe.result_netherite);
 					success(p, "You gave yourself a netherite cleaver.");
 					return true;
 				}
 
-				inv.addItem(LumberaxeRecipe.result_diamond);
+				inv.addItem(CleaverRecipe.result_diamond);
 				success(p, "You gave yourself a diamond cleaver.");
 				return true;
 			}

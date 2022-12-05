@@ -21,81 +21,53 @@ public final class ToolUtils
 
 	public static boolean isShovel(ItemStack item)
 	{
-		switch (item.getType())
-		{
-			case STONE_SHOVEL:
-			case DIAMOND_SHOVEL:
-			case NETHERITE_SHOVEL:
-			case GOLDEN_SHOVEL:
-			case IRON_SHOVEL:
-			case WOODEN_SHOVEL:
-				return true;
-			default:
-				return false;
-		}
+		if (item == null) return false;
+		return switch (item.getType())
+				{
+					case STONE_SHOVEL, DIAMOND_SHOVEL, NETHERITE_SHOVEL, GOLDEN_SHOVEL, IRON_SHOVEL, WOODEN_SHOVEL ->
+							true;
+					default -> false;
+				};
 	}
 
 	public static boolean isPickaxe(ItemStack item)
 	{
-		switch (item.getType())
-		{
-			case DIAMOND_PICKAXE:
-			case NETHERITE_PICKAXE:
-			case GOLDEN_PICKAXE:
-			case IRON_PICKAXE:
-			case STONE_PICKAXE:
-			case WOODEN_PICKAXE:
-				return true;
-			default:
-				return false;
-		}
+		if (item == null) return false;
+		return switch (item.getType())
+				{
+					case DIAMOND_PICKAXE, NETHERITE_PICKAXE, GOLDEN_PICKAXE, IRON_PICKAXE, STONE_PICKAXE,
+							WOODEN_PICKAXE -> true;
+					default -> false;
+				};
 	}
 
 	public static boolean isAxe(ItemStack item)
 	{
-		switch (item.getType())
-		{
-			case DIAMOND_AXE:
-			case NETHERITE_AXE:
-			case GOLDEN_AXE:
-			case IRON_AXE:
-			case STONE_AXE:
-			case WOODEN_AXE:
-				return true;
-			default:
-				return false;
-		}
+		if (item == null) return false;
+		return switch (item.getType())
+				{
+					case DIAMOND_AXE, NETHERITE_AXE, GOLDEN_AXE, IRON_AXE, STONE_AXE, WOODEN_AXE -> true;
+					default -> false;
+				};
 	}
 
 	public static boolean isSword(ItemStack item)
 	{
-		switch (item.getType())
-		{
-			case DIAMOND_SWORD:
-			case NETHERITE_SWORD:
-			case GOLDEN_SWORD:
-			case IRON_SWORD:
-			case STONE_SWORD:
-			case WOODEN_SWORD:
-				return true;
-			default:
-				return false;
-		}
+		if (item == null) return false;
+		return switch (item.getType())
+				{
+					case DIAMOND_SWORD, NETHERITE_SWORD, GOLDEN_SWORD, IRON_SWORD, STONE_SWORD, WOODEN_SWORD -> true;
+					default -> false;
+				};
 	}
 
 	public static boolean isHoe(ItemStack item)
 	{
-		switch (item.getType())
-		{
-			case DIAMOND_HOE:
-			case NETHERITE_HOE:
-			case GOLDEN_HOE:
-			case IRON_HOE:
-			case STONE_HOE:
-			case WOODEN_HOE:
-				return true;
-			default:
-				return false;
-		}
+		if (item == null) return false;
+		return switch (item.getType())
+				{
+					case DIAMOND_HOE, NETHERITE_HOE, GOLDEN_HOE, IRON_HOE, STONE_HOE, WOODEN_HOE -> true;
+					default -> false;
+				};
 	}
 }
